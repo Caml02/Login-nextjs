@@ -15,7 +15,7 @@ const userSchema = new Schema ({
         required: [true, "Password is requiered"],
         select: false,
     },
-    name: {
+    fullname: {
         type: String,
         required: [true, "Name is requiered"],
     }
