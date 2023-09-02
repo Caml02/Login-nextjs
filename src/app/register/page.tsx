@@ -1,10 +1,14 @@
 "use client";
 import axios, { AxiosError} from "axios";
+import { signIn } from "next-auth/react";
 import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 function RegisterPage () {
 
     const [error, setError] = useState();
+    const router = useRouter();
     
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -12,23 +16,29 @@ function RegisterPage () {
         const formData = new FormData (e.currentTarget)
         
         try {
-        
-        const res = await axios.post('api/auth/signup', {
-        email: formData.get('email'),
-        password: formData.get('password'),
-        fullname: formData.get('fullname'),
-        });
-        console.log(res);
+            const signupResponse = await axios.post('api/auth/signup', {
+            email: formData.get('email'),
+            password: formData.get('password'),
+            fullname: formData.get('fullname'),
+            });
+            console.log(signupResponse);
 
-        } catch (error) {
-            console.log(error)
-            if (error instanceof AxiosError) {
-                setError(error.response ?.data.message);
-                console.log("Error message:", error.response ?.data.message);
+            const res = await signIn('credentials', {
+                email: signupResponse.data.email,
+                password: formData.get("password"),
+                redirect: false,
+            });
 
+            if (res ?.ok) return router.push("/dashboard");
+
+            } catch(error) {
+                console.log(error);
+                if (error instanceof AxiosError) {
+                    setError(error.response?.data.message);
+                    console.log("Error message:", error.response ?.data.message);
+                }
             }
-        }
-    };
+        };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -53,6 +63,7 @@ function RegisterPage () {
             <button className="bg-indigo-500 px-4 py-2 mb-2">
                 Register
             </button>
+
             {error && <div className="bg-red-500 text-white p-2 mb-2">{error}</div>}
         </form>
     )

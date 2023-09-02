@@ -31,7 +31,11 @@ export async function POST(request: Request) {
         _id: savedUser._id,
         email: savedUser.email,
         fullname: savedUser.fullname,
-    });
+        createdAt: savedUser.createdAt,
+        updatedAt: savedUser.updatedAt,
+    },
+        { status: 201 }
+    );
 
     } catch (error) {
         console.log(error);
