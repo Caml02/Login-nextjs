@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 function LoginPage () {
 
-    const [error, setError] = useState();
+    const [error, setError] = useState("");
     const router = useRouter();
     
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -19,29 +19,33 @@ function LoginPage () {
             redirect: false,
         });
         
-        if (res?.ok) return router.push("/dashboard");
+        if (res?.error) return setError(res.error as string);
+        if (res?.ok) return router.push("/dashboard/profile");
         console.log(error);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className="justify-center h-[calc(100vh-4rem)] flex items-center">
+            <form onSubmit={handleSubmit} className="bg-neutral-950 px-8 py-10 w-3/12">
+            
             {error && <div className="bg-red-500 text-white p-2 mb-2">{error}</div>}            
-            <h1 className="text-3xl font-bold my-2"> Sign In</h1>
+            <h1 className="text-4xl font-bold mb-7"> Sign In</h1>
 
             <input type="email"
             placeholder="Email" 
             name="email"
-            className="bg-zinc-800 px-4 py-2 block mb-2"/>
+            className="bg-zinc-800 px-4 py-2 block mb-2 w-full"/>
 
             <input type="password"
-            placeholder="password" 
+            placeholder="*******" 
             name="password"
-            className="bg-zinc-800 px-4 py-2 block mb-2"/>
+            className="bg-zinc-800 px-4 py-2 block mb-2 w-full"/>
 
-            <button className="bg-indigo-500 px-4 py-2 mb-2">
+            <button className="bg-indigo-500 px-4 py-2">
                 Log In
             </button>
         </form>
+        </div>
     );
 }
 
