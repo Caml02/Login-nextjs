@@ -14,13 +14,22 @@ async function Navbar() {
   
           <ul className="flex gap-x-2">
             {session ? (
+              <>
                 <li className="px-3 py-1">
-                    <a href="/dashboard/profile">Dashboard</a>
+                    <a href="/">Home</a>
                 </li>
+                <li className="px-3 py-1">
+                    <a href="/about">About Us</a>
+                </li>
+                <li className="px-3 py-1">
+                    <a href="/dashboard/profile">Profile</a>
+                </li>
+              </>
+                
             ) : (
                 <>
                 <li className="px-3 py-1">
-                    <a href="/about">About</a>
+                    <a href="/about">About Us</a>
                 </li>
                 <li className="px-3 py-1">
                     <a href="/login">Login</a>
