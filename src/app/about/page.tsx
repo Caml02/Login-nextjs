@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import ImageUs from '../../img/ImageUs.svg';
 
 function AboutPage() {
   return (
@@ -7,7 +8,7 @@ function AboutPage() {
       <div className="sm:w-1/2 p-10">
         <div className="image object-center text-center">
           <Image
-            src="/img/Image-About-us-removebg.png"
+            src={ImageUs}
             alt="About Us Image"
             width={400}
             height={300}
