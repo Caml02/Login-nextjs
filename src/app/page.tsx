@@ -26,7 +26,7 @@ function HomePage() {
            alt="" width="150" height="150" className="flex-none rounded-lg bg-slate-100" loading="lazy" />
           <div className="min-w-0 flex-auto space-y-1 font-semibold">
             <p className="text-violet-600 dark:text-violet-400 text-sm">
-              Nu Bank Employee's Portal
+              Employee's Portal
             </p>
             <p className="text-slate-900 dark:text-slate-50 text-lg">
               Full Stack Proyect
